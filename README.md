@@ -53,8 +53,6 @@ To prepare the training set:
 │   └── <sampled_patent_data_files>
 ├── models/
 │   └── <model_checkpoint_files>
-├── src/
-│   └── <training_and_evaluation_scripts>
 ├── README.md
 └── ...
 ```

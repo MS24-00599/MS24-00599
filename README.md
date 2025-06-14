@@ -106,18 +106,18 @@ When group assignment reflects endogenous selection, causal identification requi
 
 ### Strategy A: Text-Corrected Premium Analysis
 
-This approach treats one group's predicted outcomes as a quality-adjusted baseline, enabling decomposition of observed outcomes into textual and non-textual components.
+This approach treats one group's estimated outcomes as a quality-adjusted baseline, enabling the decomposition of observed outcomes into textual and non-textual components.
 
 **Methodology**: 
 - Estimate baseline outcomes using the reference group's prediction model
 - Calculate the text-corrected premium: actual outcomes minus baseline predictions  
 - Analyze how group characteristics correlate with this premium
 
-**Economic Interpretation**: The premium captures outcome variation attributable to non-textual factors (e.g., discrimination, networks, institutional advantages) after controlling for content quality.
+**Economic Interpretation**: The premium captures outcome variation attributable to non-textual factors (e.g., discrimination, networks, institutional advantages).
 
 ### Strategy B: Text Quality Controls in Regression Analysis
 
-This approach uses predicted outcomes as control variables in broader empirical frameworks.
+This approach uses estimated outcomes as control variables in broader empirical frameworks.
 
 **Methodology**:
 - Generate text quality proxies from outcome prediction models
@@ -134,4 +134,4 @@ The I-TEXT framework advances empirical text analysis by:
 2. **Enabling Text-related Decomposition**: Separates textual content associations from other factors  
 3. **Providing Flexible Controls**: Generates quality-adjusted baselines for diverse empirical applications
 
-These capabilities make I-TEXT particularly valuable for studying discrimination, institutional effects, and other phenomena where text quality and group membership may be correlated.
+These capabilities make I-TEXT particularly valuable for studying discrimination, institutional associations, and other phenomena where text and group membership may be correlated.

@@ -85,3 +85,53 @@ import numpy as np
 dfcit=pd.read_parquet("../data/positive_balanced_sample_output.parquet")
 dfcit["text_quality"]=np.exp(dfcit.log_female_expected_citation)-1
 ```
+
+# I-TEXT Methodology Applications
+
+## Framework Overview
+
+The I-TEXT framework estimates outcome variables using text data and categorical group indicators while generating propensity scores for each observation. This methodology addresses two fundamental challenges in text-based empirical analysis: incomplete textual overlap between groups and non-random selection into treatment categories.
+
+While our implementation focuses on binary classification, the framework extends naturally to multiple groups. The following applications demonstrate the methodology's versatility under different assignment mechanisms.
+
+## Application 1: Random Group Assignment
+
+Under random assignment, the average treatment effect equals the simple difference in group means. However, I-TEXT provides additional value when textual domains exhibit incomplete overlap between groups.
+
+**Example**: In patent-gender analysis, certain technical fields may be predominantly associated with one gender, creating sparse counterfactual predictions when switching group assignments. The framework addresses this limitation through propensity score trimming—identifying and excluding observations with extreme propensity scores (near 0 or 1) before estimating treatment effects. This ensures robust causal identification within the region of common support.
+
+## Application 2: Non-Random Group Assignment  
+
+When group assignment reflects endogenous selection, causal identification requires alternative approaches. I-TEXT enables two distinct empirical strategies:
+
+### Strategy A: Text-Corrected Premium Analysis
+
+This approach treats one group's predicted outcomes as a quality-adjusted baseline, enabling decomposition of observed outcomes into textual and non-textual components.
+
+**Methodology**: 
+- Estimate baseline outcomes using the reference group's prediction model
+- Calculate the text-corrected premium: actual outcomes minus baseline predictions  
+- Analyze how group characteristics correlate with this premium
+
+**Economic Interpretation**: The premium captures outcome variation attributable to non-textual factors (e.g., discrimination, networks, institutional advantages) after controlling for content quality.
+
+### Strategy B: Text Quality Controls in Regression Analysis
+
+This approach uses predicted outcomes as control variables in broader empirical frameworks.
+
+**Methodology**:
+- Generate text quality proxies from outcome prediction models
+- Include these controls in regressions with flexible dependent variables
+- Estimate group effects conditional on textual content quality
+
+**Advantages**: Provides flexible control for text quality while accommodating various outcome measures and research designs.
+
+## Methodological Contributions
+
+The I-TEXT framework advances empirical text analysis by:
+
+1. **Handling Domain Separation**: Propensity score methods address incomplete textual overlap between groups
+2. **Enabling Text-related Decomposition**: Separates textual content associations from other factors  
+3. **Providing Flexible Controls**: Generates quality-adjusted baselines for diverse empirical applications
+
+These capabilities make I-TEXT particularly valuable for studying discrimination, institutional effects, and other phenomena where text quality and group membership may be correlated.

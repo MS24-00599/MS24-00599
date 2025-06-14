@@ -44,6 +44,15 @@ A random sample of 1000k patents with randomly assigned T groups and synthetic o
 
 *data/positive_balanced_sample_output.parquet* -- The main output of the manual script -- gender balanced subset of patents with positive citations. This parquet file contains the expected citation counts and female author propensity estimated by our model. To replicate our paper, please use the expected citations by the male model and exponentiate the raw numbers with exp(x)-1, because when fitting the model, we apply a log(1+x) transformation to the citation counts.
 
+| Variable | Type | Description |
+|----------|------|-------------|
+| `patent_id` | String | Unique identifier for each patent document |
+| `log_male_expected_citation` | Float | Log-transformed expected citations under male model |
+| `log_female_expected_citation` | Float | Log-transformed expected citations under female model |
+| `female_propensity` | Float (0-1) | Estimated probability that patent was written by female author |
+| `log_true_citation_count` | Float | Log-transformed actual citation count received by patent |
+| `female_author_indicator` | Binary (0/1) | Actual indicator for female lead author (1=female, 0=male) |
+
 ## codes
 *examples/example_fit_data.ipynb* --
 A general notebook tutorial that can be used to fit an I-TEXT model with a chosen text encoder (the default one in the script is Longformer) and properly formatted data containing text (input), target (output), and group indicator.

@@ -37,13 +37,10 @@ Our analysis is based on a subset of United States utility patents granted from 
 
 This balanced design is crucial for training an unbiased gender propensity predictor. If the model were trained on the unfiltered population, where over 90% of lead authors are male, the propensity output would be dominated by the majority class and thus uninformative.
 
-### Data Preparation Example
+### Datasets
 
-To prepare the training set:
-
-1. Collect all patents with an identified female lead author
-2. Randomly sample an equal number of patents with male lead authors
-3. Combine these patents into a single, balanced dataset
+*data/synthetic_1k_sample.parquet* --
+A random sample of 1000k patents with randomly assigned T groups and synthetic outcomes. The synthetic outcomes are created by taking a random linear combination of all the text embeddings produced by the pre-trained Longformer model. The T=1 group receives one higher citation than T=0.
 
 ## Repository Structure
 

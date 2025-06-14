@@ -42,14 +42,15 @@ This balanced design is crucial for training an unbiased gender propensity predi
 *data/synthetic_1k_sample.parquet* --
 A random sample of 1000k patents with randomly assigned T groups and synthetic outcomes. The synthetic outcomes are created by taking a random linear combination of all the text embeddings produced by the pre-trained Longformer model. The T=1 group receives one higher citation than T=0.
 
+*data/positive_balanced_sample_output.parquet* -- The main output of the manual script -- gender balanced subset of patents with positive citations. This parquet file contains the expected citation counts and female author propensity estimated by our model. To replicate our paper, please use the expected citations by the male model and exponentiate the raw numbers with exp(x)-1, because when fitting the model, we apply a log(1+x) transformation to the citation counts.
 ## Repository Structure
 
 ```
 .
 ├── data/
 │   └── <sampled_patent_data_files>
-├── models/
-│   └── <model_checkpoint_files>
+├── code/
+│   └── <sample codes>
 ├── README.md
 └── ...
 ```
@@ -57,8 +58,8 @@ A random sample of 1000k patents with randomly assigned T groups and synthetic o
 ## Usage
 
 1. Clone the repository
-2. Prepare the dataset using the outlined balanced sampling approach
-3. Train the model with the scripts provided in the `src/` directory
+2. Prepare the dataset as a pandas dataframe containing text (input), target (output), and group indicator.
+3. Fit the model with the scripts provided in the `code/example_fit_data.ipynb` directory.
 
-Detailed instructions for data formatting and model training are provided in the `src/` directory.
+An example of the fitting process with a small synthetic dataset is in code/run_small_synthetic_check.ipynb
 

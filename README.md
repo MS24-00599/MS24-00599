@@ -37,29 +37,51 @@ Our analysis is based on a subset of United States utility patents granted from 
 
 This balanced design is crucial for training an unbiased gender propensity predictor. If the model were trained on the unfiltered population, where over 90% of lead authors are male, the propensity output would be dominated by the majority class and thus uninformative.
 
-### Datasets
+## Datasets
 
 *data/synthetic_1k_sample.parquet* --
 A random sample of 1000k patents with randomly assigned T groups and synthetic outcomes. The synthetic outcomes are created by taking a random linear combination of all the text embeddings produced by the pre-trained Longformer model. The T=1 group receives one higher citation than T=0.
 
 *data/positive_balanced_sample_output.parquet* -- The main output of the manual script -- gender balanced subset of patents with positive citations. This parquet file contains the expected citation counts and female author propensity estimated by our model. To replicate our paper, please use the expected citations by the male model and exponentiate the raw numbers with exp(x)-1, because when fitting the model, we apply a log(1+x) transformation to the citation counts.
+
+## codes
+*examples/example_fit_data.ipynb* --
+A general notebook tutorial that can be used to fit an I-TEXT model with a chosen text encoder (the default one in the script is Longformer) and properly formatted data containing text (input), target (output), and group indicator.
+
+*examples/run_small_synthetic_check.ipynb* --
+An example code that uses the I-TEXT architecture to estimate the average difference between the citation counts estimated in two groups. This example uses real patent data, random group assignment, and synthetic targets (outcomes) where the ground-truth difference between groups 1 and 0 is 1. The estimated average difference in this dataset is 1.02.
+
+
 ## Repository Structure
 
 ```
 .
 ├── data/
 │   └── <sampled_patent_data_files>
-├── code/
+├── examples/
 │   └── <sample codes>
 ├── README.md
 └── ...
 ```
 
-## Usage
+## Using this repo
+To clone the repository, use the following command:
+
+```bash
+git clone https://github.com/MS24-00599/MS24-00599.git
+```
+
+### Fitting a model
 
 1. Clone the repository
 2. Prepare the dataset as a pandas dataframe containing text (input), target (output), and group indicator.
 3. Fit the model with the scripts provided in the `code/example_fit_data.ipynb` directory.
 
-An example of the fitting process with a small synthetic dataset is in code/run_small_synthetic_check.ipynb
+### Using the dataset as a control variable for patent quality
 
+```python
+import pandas as pd
+import numpy as np
+dfcit=pd.read_parquet("../data/positive_balanced_sample_output.parquet")
+dfcit["text_quality"]=np.exp(dfcit.log_female_expected_citation)-1
+```
